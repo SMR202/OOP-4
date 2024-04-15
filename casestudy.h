@@ -70,5 +70,13 @@ public:
 class MotherBoard : public MainMemory, Port {
 protected:
 	MainMemory mm;
+	int NumOfPorts;
 	Port ports[];
+public:
+	MotherBoard(MainMemory mm, int NumOfPorts, Port ports[]);
+	MotherBoard(MotherBoard&);
+	MainMemory getMainMemory();
+	Port getPort(int i);
+	void setMainMemory(MainMemory&);
+	void setPort(int i, Port port);
 };

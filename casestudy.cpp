@@ -93,3 +93,30 @@ void Port::setbaud_rate(int x) {
 void Port::settype(string s) {
 	this->type = s;
 }
+
+MotherBoard::MotherBoard(MainMemory mm, int NumOfPorts, Port ports[]) : mm(mm), NumOfPorts(NumOfPorts) {
+	for (int i = 0; i < NumOfPorts; i++) {
+		this->ports[i] = ports[i];
+	}
+}
+MotherBoard::MotherBoard(MotherBoard& other) {
+	this->mm = other.mm;
+	this->NumOfPorts = other.NumOfPorts;
+	for (int i = 0; i < NumOfPorts; i++) {
+		this->ports[i] = other.ports[i];
+	}
+}
+MainMemory MotherBoard::getMainMemory() {
+	return mm;
+}
+Port MotherBoard::getPort(int i) {
+	return ports[i];
+}
+void MotherBoard::setMainMemory(MainMemory& other) {
+	mm = other.mm;
+}
+void MotherBoard::setPort(int i, Port port) {
+	ports[i] = port;
+}
+
+
