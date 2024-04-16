@@ -122,3 +122,61 @@ public:
 	void setMemorySize(int);
 	void setPrice(double);
 };
+
+class StorageDevice{
+protected:
+	string type;
+	int capacity;
+	double price;
+public:
+	StorageDevice(string type, int capacity, double price);
+	StorageDevice(StorageDevice& );
+	string gettype();
+	int getcapacity();
+	double getPrice();
+	void settype(string );
+	void setcapacity(int);
+	void setPrice(double);
+};
+
+class StorageDevice{
+protected:
+	string type;
+	int speed;
+	double price;
+public:
+	StorageDevice(string type, int speed, double price);
+	StorageDevice(StorageDevice& );
+	string gettype();
+	int getspeed();
+	double getPrice();
+	void settype(string );
+	void setspeed(int);
+	void setPrice(double);
+};
+
+class PowerSupply{
+protected:
+	string efficiencyRating;
+	int wattage;
+	double price;
+public:
+	PowerSupply(string efficiencyRating, int wattage, double price);
+	PowerSupply(PowerSupply& );
+	string getEfficiencyRating();
+	int getwattage();
+	double getPrice();
+	void setEfficiencyRating(string );
+	void setwattage(int);
+	void setPrice(double);
+};
+
+class Battery{
+protected:
+	int capacity;
+public:
+	Battery(int capacity);
+	Battery(Battery&);
+	int getCapacity() const;
+	void setCapacity(int x);
+};
