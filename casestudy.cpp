@@ -128,129 +128,127 @@ int PhysicalMemory::getCapacity() const{
 void PhysicalMemory::setCapacity(int x){
 	capacity = x;
 }
-	Computer::Computer (PhysicalMemory pm, MotherBoard mb, CPU cpu) : pm(pm), mb(mb), cpu(cpu){}
-	Computer::Computer (Computer& other){
-		this->pm = other.pm;
-		this->mb = other.mb;
-		this->cpu = other.cpu;
-	}
-	PhysicalMemory Computer::getPhysicalMemory() const{
-		return pm;
-	}
-	MotherBoard Computer::getMotherBoard() const{
-		return mb;
-	}
-	CPU Computer::getCPU() const{
-		return cpu;
-	}
-	void Computer::setPhysicalMemory(PhysicalMemory& other){
-		this->pm = other.pm;
-	}
-	void Computer::setMotherBoard(MotherBoard& other){
-		this->mb = other.mb;
-	}
-	void Computer::setCPU(CPU& other){
-		this->cpu = other.cpu;
-	}
-	GraphicsCard::GraphicsCard(string brand, int memorySize, double price) : brand(brand), memorySize(memorySize), price(price){}
-	GraphicsCard::GraphicsCard(GraphicsCard& other){
-		this->brand = other.brand;
-		this->memorySize = other.memorySize;
-		this->price = other.price;
-	}
-	string GraphicsCard::getBrand(){
-		return brand;
-	}
-	int GraphicsCard::getMemorySize(){
-		return memorySize;
-	}
-	double GraphicsCard::getPrice(){
-		return price;
-	}
-	void GraphicsCard::setBrand(string new_brand){
-		this->brand = new_brand;
-	}
-	void GraphicsCard::setMemorySize(int new_size){
-		this->memorySize = new_size;
-	}
-	void GraphicsCard::setPrice(double new_price){
-		this->price = new_price;
-	}
+Computer::Computer (PhysicalMemory pm, MotherBoard mb, CPU cpu) : pm(pm), mb(mb), cpu(cpu){}
+Computer::Computer (Computer& other){
+	this->pm = other.pm;
+	this->mb = other.mb;
+	this->cpu = other.cpu;
+}
+PhysicalMemory Computer::getPhysicalMemory() const{
+	return pm;
+}
+MotherBoard Computer::getMotherBoard() const{
+	return mb;
+}
+CPU Computer::getCPU() const{
+	return cpu;
+}
+void Computer::setPhysicalMemory(PhysicalMemory& other){
+	this->pm = other.pm;
+}
+void Computer::setMotherBoard(MotherBoard& other){
+	this->mb = other.mb;
+}
+void Computer::setCPU(CPU& other){
+	this->cpu = other.cpu;
+}
+GraphicsCard::GraphicsCard(string brand, int memorySize, double price) : brand(brand), memorySize(memorySize), price(price){}
+GraphicsCard::GraphicsCard(GraphicsCard& other){
+	this->brand = other.brand;
+	this->memorySize = other.memorySize;
+	this->price = other.price;
+}
+string GraphicsCard::getBrand(){
+	return brand;
+}
+int GraphicsCard::getMemorySize(){
+	return memorySize;
+}
+double GraphicsCard::getPrice(){
+	return price;
+}
+void GraphicsCard::setBrand(string new_brand){
+	this->brand = new_brand;
+}
+void GraphicsCard::setMemorySize(int new_size){
+	this->memorySize = new_size;
+}
+void GraphicsCard::setPrice(double new_price){
+	this->price = new_price;
+}
+StorageDevice::StorageDevice(string type, int capacity, double price) : type(type), capacity(capacity), price(price){}
+StorageDevice::StorageDevice(StorageDevice& other){
+	this->type = other.type;
+	this->capacity = other.capacity;
+	this->price = other.price;
+}
+string StorageDevice::gettype(){
+	return type;
+}
+int StorageDevice::getcapacity(){
+	return capacity;
+}
+double StorageDevice::getPrice(){
+	return price;
+}
+void StorageDevice::settype(string new_type){
+	this->type = new_type;
+}
+void StorageDevice::setcapacity(int new_size){
+	this->capacity = new_size;
+}
+void StorageDevice::setPrice(double new_price){
+	this->price = new_price;
+}
 
-	StorageDevice::StorageDevice(string type, int capacity, double price) : type(type), capacity(capacity), price(price){}
-	StorageDevice::StorageDevice(StorageDevice& other){
-		this->type = other.type;
-		this->capacity = other.capacity;
-		this->price = other.price;
-	}
-	string StorageDevice::gettype(){
-		return type;
-	}
-	int StorageDevice::getcapacity(){
-		return capacity;
-	}
-	double StorageDevice::getPrice(){
-		return price;
-	}
-	void StorageDevice::settype(string new_type){
-		this->type = new_type;
-	}
-	void StorageDevice::setcapacity(int new_size){
-		this->capacity = new_size;
-	}
-	void StorageDevice::setPrice(double new_price){
-		this->price = new_price;
-	}
-	
-	NetworkCard::NetworkCard(string type, int speed, double price) : type(type), speed(speed), price(price){}
-	NetworkCard::NetworkCard(NetworkCard& other){
-		this->type = other.type;
-		this->speed = other.speed;
-		this->price = other.price;
-	}
-	string NetworkCard::gettype(){
-		return type;
-	}
-	int NetworkCard::getspeed(){
-		return speed;
-	}
-	double NetworkCard::getPrice(){
-		return price;
-	}
-	void NetworkCard::settype(string new_type){
-		this->type = new_type;
-	}
-	void NetworkCard::setspeed(int new_size){
-		this->speed = new_size;
-	}
-	void NetworkCard::setPrice(double new_price){
-		this->price = new_price;
-	}
-
-	PowerSupply::PowerSupply(string efficiencyRating, int wattage, double price) : efficiencyRating(efficiencyRating), wattage(wattage), price(price){}
-	PowerSupply::PowerSupply(PowerSupply& other){
-		this->efficiencyRating = other.efficiencyRating;
-		this->wattage = other.wattage;
-		this->price = other.price;
-	}
-	string PowerSupply::getEfficiencyRating(){
-		return efficiencyRating;
-	}
-	int PowerSupply::getwattage(){
-		return wattage;
-	}
-	double PowerSupply::getPrice(){
-		return price;
-	}
-	void PowerSupply::setEfficiencyRating(string new_efficiencyRating){
-		this->efficiencyRating = new_efficiencyRating;
-	}
-	void PowerSupply::setwattage(int new_size){
-		this->wattage = new_size;
-	}
-	void PowerSupply::setPrice(double new_price){
-		this->price = new_price;
-	}
+NetworkCard::NetworkCard(string type, int speed, double price) : type(type), speed(speed), price(price){}
+NetworkCard::NetworkCard(NetworkCard& other){
+	this->type = other.type;
+	this->speed = other.speed;
+	this->price = other.price;
+}
+string NetworkCard::gettype(){
+	return type;
+}
+int NetworkCard::getspeed(){
+	return speed;
+}
+double NetworkCard::getPrice(){
+	return price;
+}
+void NetworkCard::settype(string new_type){
+	this->type = new_type;
+}
+void NetworkCard::setspeed(int new_size){
+	this->speed = new_size;
+}
+void NetworkCard::setPrice(double new_price){
+	this->price = new_price;
+}
+PowerSupply::PowerSupply(string efficiencyRating, int wattage, double price) : efficiencyRating(efficiencyRating), wattage(wattage), price(price){}
+PowerSupply::PowerSupply(PowerSupply& other){
+	this->efficiencyRating = other.efficiencyRating;
+	this->wattage = other.wattage;
+	this->price = other.price;
+}
+string PowerSupply::getEfficiencyRating(){
+	return efficiencyRating;
+}
+int PowerSupply::getwattage(){
+	return wattage;
+}
+double PowerSupply::getPrice(){
+	return price;
+}
+void PowerSupply::setEfficiencyRating(string new_efficiencyRating){
+	this->efficiencyRating = new_efficiencyRating;
+}
+void PowerSupply::setwattage(int new_size){
+	this->wattage = new_size;
+}
+void PowerSupply::setPrice(double new_price){
+	this->price = new_price;
+}
 
 Battery::Battery(int capacity) : capacity(capacity){}
 Battery::Battery(Battery& capacity){
@@ -261,4 +259,33 @@ int Battery::getCapacity() const{
 }
 void Battery::setCapacity(int x){
 	capacity = x;
+}
+
+Case::Case(string formFactor, string color) : formFactor(formFactor), color(color){}
+Case::Case(Case& other){
+	this->formFactor = other.formFactor;
+	this->color = other.color;
+}
+string Case::getFormFactor(){
+	return formFactor;
+}
+string Case::getColor(){
+	return color;
+}
+void Case::setFormFactor(string new_Form){
+	this->formFactor = new_Form;
+}
+void Case::setColor(string new_Color){
+	this->color = new_Color;
+}
+
+ComputerAssembly::ComputerAssembly(double price) : price(price){}
+ComputerAssembly::ComputerAssembly(ComputerAssembly& other){
+	this->price = other.price;
+}
+double ComputerAssembly::getPrice(){
+	return this->price;
+}
+void ComputerAssembly::setPrice(double new_price){
+	this->price = new_price;
 }

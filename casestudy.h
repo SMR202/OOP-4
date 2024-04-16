@@ -180,3 +180,26 @@ public:
 	int getCapacity() const;
 	void setCapacity(int x);
 };
+
+class Case{
+protected:
+	string formFactor;
+	string color;
+public:
+	Case(string formFactor, string color);
+	Case(Case& );
+	string getFormFactor();
+	string getColor();
+	void setFormFactor(string new_Form);
+	void setColor(string new_Color);
+};
+
+class ComputerAssembly{
+protected:
+	double price;
+public:
+	ComputerAssembly(double price);
+	ComputerAssembly(ComputerAssembly&);
+	double getPrice();
+	void setPrice(double new_price); 
+};
