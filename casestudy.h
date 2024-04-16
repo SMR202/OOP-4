@@ -80,3 +80,45 @@ public:
 	void setMainMemory(MainMemory&);
 	void setPort(int i, Port port);
 };
+
+class PhysicalMemory{
+protected:
+	int capacity;
+public:
+	PhysicalMemory(int capacity);
+	PhysicalMemory(PhysicalMemory&);
+	int getCapacity() const;
+	void setCapacity(int x);
+};
+
+class Computer public : PhysicalMemory, MotherBoard, CPU{
+protected:
+	PhysicalMemory pm;
+	MotherBoard mb;
+	CPU cpu;
+public:
+	Computer (PhysicalMemory pm, MotherBoard mb, CPU cpu);
+	Computer (Computer& );
+	PhysicalMemory getPhysicalMemory() const;
+	MotherBoard getMotherBoard() const;
+	CPU getCPU() const;
+	void setPhysicalMemory(PhysicalMemory& );
+	void setMotherBoard(MotherBoard& );
+	void setCPU(CPU& );
+};
+
+class GraphicsCard{
+protected:
+	string brand;
+	int memorySize;
+	double price;
+public:
+	GraphicsCard(string brand, int memorySize, double price);
+	GraphicsCard(GraphicsCard& );
+	string getBrand();
+	int getMemorySize();
+	double getPrice();
+	void setBrand(string );
+	void setMemorySize(int);
+	void setPrice(double);
+};

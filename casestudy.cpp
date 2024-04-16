@@ -118,5 +118,61 @@ void MotherBoard::setMainMemory(MainMemory& other) {
 void MotherBoard::setPort(int i, Port port) {
 	ports[i] = port;
 }
-
-
+PhysicalMemory::PhysicalMemory(int capacity) : capacity(capacity){}
+PhysicalMemory::PhysicalMemory(PhysicalMemory& capacity){
+	this->capacity = other.capacity;
+}
+int PhysicalMemory::getCapacity() const{
+	return capacity;
+}
+void PhysicalMemory::setCapacity(int x){
+	capacity = x;
+}
+	Computer::Computer (PhysicalMemory pm, MotherBoard mb, CPU cpu) : pm(pm), mb(mb), cpu(cpu){}
+	Computer::Computer (Computer& other){
+		this->pm = other.pm;
+		this->mb = other.mb;
+		this->cpu = other.cpu;
+	}
+	PhysicalMemory Computer::getPhysicalMemory() const{
+		return pm;
+	}
+	MotherBoard Computer::getMotherBoard() const{
+		return mb;
+	}
+	CPU Computer::getCPU() const{
+		return cpu;
+	}
+	void Computer::setPhysicalMemory(PhysicalMemory& other){
+		this->pm = other.pm;
+	}
+	void Computer::setMotherBoard(MotherBoard& other){
+		this->mb = other.mb;
+	}
+	void Computer::setCPU(CPU& other){
+		this->cpu = other.cpu;
+	}
+	GraphicsCard::GraphicsCard(string brand, int memorySize, double price) : brand(brand), memorySize(memorySize), price(price){}
+	GraphicsCard::GraphicsCard(GraphicsCard& other){
+		this->brand = other.brand;
+		this->memorySize = other.memorySize;
+		this->price = other.price;
+	}
+	string GraphicsCard::getBrand(){
+		return brand;
+	}
+	int GraphicsCard::getMemorySize(){
+		return memorySize;
+	}
+	double GraphicsCard::getPrice(){
+		return price;
+	}
+	void GraphicsCard::setBrand(string new_brand){
+		this->brand = new_brand;
+	}
+	void GraphicsCard::setMemorySize(int new_size){
+		this->memorySize = new_size;
+	}
+	void GraphicsCard::setPrice(double new_price){
+		this->price = new_price;
+	}
