@@ -29,7 +29,7 @@ public:
 };
 
 class CPU : public ALU, ControlUnit {
-protected: 
+protected:
 	ALU alu;
 	ControlUnit cu;
 public:
@@ -42,7 +42,7 @@ public:
 };
 
 class MainMemory {
-protected: 
+protected:
 	int capacity;
 	string technologyType;
 public:
@@ -55,7 +55,7 @@ public:
 };
 
 class Port {
-protected: 
+protected:
 	string type;
 	int baud_rate;
 public:
@@ -71,9 +71,9 @@ class MotherBoard : public MainMemory, Port {
 protected:
 	MainMemory mm;
 	int NumOfPorts;
-	Port ports[];
+	Port *ports;
 public:
-	MotherBoard(MainMemory mm, int NumOfPorts, Port ports[]);
+	MotherBoard(MainMemory mm, int NumOfPorts, Port *ports);
 	MotherBoard(MotherBoard&);
 	MainMemory getMainMemory();
 	Port getPort(int i);
@@ -81,7 +81,7 @@ public:
 	void setPort(int i, Port port);
 };
 
-class PhysicalMemory{
+class PhysicalMemory {
 protected:
 	int capacity;
 public:
@@ -91,115 +91,109 @@ public:
 	void setCapacity(int x);
 };
 
-class Computer public : PhysicalMemory, MotherBoard, CPU{
+class Computer : public PhysicalMemory, MotherBoard, CPU{
 protected:
 	PhysicalMemory pm;
 	MotherBoard mb;
 	CPU cpu;
 public:
-	Computer (PhysicalMemory pm, MotherBoard mb, CPU cpu);
-	Computer (Computer& );
+	Computer(PhysicalMemory pm, MotherBoard mb, CPU cpu);
+	Computer(Computer&);
 	PhysicalMemory getPhysicalMemory() const;
 	MotherBoard getMotherBoard() const;
 	CPU getCPU() const;
-	void setPhysicalMemory(PhysicalMemory& );
-	void setMotherBoard(MotherBoard& );
-	void setCPU(CPU& );
+	void setPhysicalMemory(PhysicalMemory&);
+	void setMotherBoard(MotherBoard&);
+	void setCPU(CPU&);
 };
 
-class GraphicsCard{
+class GraphicsCard {
 protected:
-	string brand;
-	int memorySize;
-	double price;
+	 string brand;
+	 int memorySize;
+	 double price;
 public:
-	GraphicsCard(string brand, int memorySize, double price);
-	GraphicsCard(GraphicsCard& );
-	string getBrand();
-	int getMemorySize();
-	double getPrice();
-	void setBrand(string );
-	void setMemorySize(int);
-	void setPrice(double);
+	 GraphicsCard(string brand, int memorySize, double price);
+	 GraphicsCard(GraphicsCard&);
+	 string getBrand();
+	 int getMemorySize();
+	 double getPrice();
+	 void setBrand(string);
+	 void setMemorySize(int);
+	 void setPrice(double);
 };
-
-class StorageDevice{
+class StorageDevice {
 protected:
-	string type;
-	int capacity;
-	double price;
+	 string type;
+	 int capacity;
+	 double price;
 public:
-	StorageDevice(string type, int capacity, double price);
-	StorageDevice(StorageDevice& );
-	string gettype();
-	int getcapacity();
-	double getPrice();
-	void settype(string );
-	void setcapacity(int);
-	void setPrice(double);
+	 StorageDevice(string type, int capacity, double price);
+	 StorageDevice(StorageDevice&);
+	 string gettype();
+	 int getcapacity();
+	 double getPrice();
+	 void settype(string);
+	 void setcapacity(int);
+	 void setPrice(double);
 };
-
-class StorageDevice{
+class NetworkCard {
 protected:
-	string type;
-	int speed;
-	double price;
+	 string type;
+	 int speed;
+	 double price;
 public:
-	StorageDevice(string type, int speed, double price);
-	StorageDevice(StorageDevice& );
-	string gettype();
-	int getspeed();
-	double getPrice();
-	void settype(string );
-	void setspeed(int);
-	void setPrice(double);
+	 NetworkCard(string type, int speed, double price);
+	 NetworkCard(NetworkCard&);
+	 string gettype();
+	 int getspeed();
+	 double getPrice();
+	 void settype(string);
+	 void setspeed(int);
+	 void setPrice(double);
 };
-
-class PowerSupply{
+class PowerSupply {
 protected:
-	string efficiencyRating;
-	int wattage;
-	double price;
+	 string efficiencyRating;
+	 int wattage;
+	 double price;
 public:
-	PowerSupply(string efficiencyRating, int wattage, double price);
-	PowerSupply(PowerSupply& );
-	string getEfficiencyRating();
-	int getwattage();
-	double getPrice();
-	void setEfficiencyRating(string );
-	void setwattage(int);
-	void setPrice(double);
+	 PowerSupply(string efficiencyRating, int wattage, double price);
+	 PowerSupply(PowerSupply&);
+	 string getEfficiencyRating();
+	 int getwattage();
+	 double getPrice();
+	 void setEfficiencyRating(string);
+	 void setwattage(int);
+	 void setPrice(double);
 };
-
-class Battery{
+class Battery {
 protected:
-	int capacity;
+	 int capacity;
 public:
-	Battery(int capacity);
-	Battery(Battery&);
-	int getCapacity() const;
-	void setCapacity(int x);
+	 Battery(int capacity);
+	 Battery(Battery&);
+	 int getCapacity() const;
+	 void setCapacity(int x);
 };
-
-class Case{
+class Case {
 protected:
-	string formFactor;
-	string color;
+	 string formFactor;
+	 string color;
 public:
-	Case(string formFactor, string color);
-	Case(Case& );
-	string getFormFactor();
-	string getColor();
-	void setFormFactor(string new_Form);
-	void setColor(string new_Color);
+	 Case(string formFactor, string color);
+	 Case(Case&);
+	 string getFormFactor();
+	 string getColor();
+	 void setFormFactor(string new_Form);
+	 void setColor(string new_Color);
 };
-
-class ComputerAssembly{
+class ComputerAssembly {
 protected:
-	double price;
+	 double price;
 public:
-	ComputerAssembly(double price);
-	ComputerAssembly(ComputerAssembly&);
-	double getPrice();
-	void setPrice(double new_price); 
+	 ComputerAssembly(double price);
+	 ComputerAssembly(ComputerAssembly&);
+	 double getPrice();
+	 void setPrice(double new_price);
 };
