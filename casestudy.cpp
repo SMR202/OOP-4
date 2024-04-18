@@ -284,13 +284,13 @@ void Case::setColor(string new_Color) {
 	this->color = new_Color;
 }
 
-ComputerAssembly::ComputerAssembly(double price) : price(price) {}
+ComputerAssembly::ComputerAssembly(Computer computer, Case PC_case, PowerSupply psu, GraphicsCard gpu, StorageDevice drive, NetworkCard netcard, Battery battery) : computer(computer), PC_case(PC_case), psu(psu), gpu(gpu), drive(drive), netcard(netcard), battery(battery) {}
 ComputerAssembly::ComputerAssembly(ComputerAssembly& other) {
-	this->price = other.price;
+	this->TotalPrice = other.TotalPrice;
 }
-double ComputerAssembly::getPrice() {
-	return this->price;
+double ComputerAssembly::getTotalPrice() {
+	return this->TotalPrice;
 }
-void ComputerAssembly::setPrice(double new_price) {
-	this->price = new_price;
+void ComputerAssembly::setTotalPrice(double new_TotalPrice) {
+	this->TotalPrice = new_TotalPrice;
 }

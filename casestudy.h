@@ -191,7 +191,7 @@ public:
 };
 class ComputerAssembly {
 protected:
-	 double price;
+	 double TotalPrice;
 	 Case PC_case;
 	 Computer computer;
 	 PowerSupply psu;
@@ -199,10 +199,9 @@ protected:
 	 StorageDevice drive;
 	 NetworkCard netcard;
 	 Battery battery;
-
 public:
-	 ComputerAssembly(double price);
+	 ComputerAssembly(Computer computer, Case PC_case, PowerSupply psu, GraphicsCard gpu, StorageDevice drive, NetworkCard netcard, Battery battery);
 	 ComputerAssembly(ComputerAssembly&);
-	 double getPrice();
-	 void setPrice(double new_price);
+	 double getTotalPrice();
+	 void setTotalPrice(double new_TotalPrice);
 };
