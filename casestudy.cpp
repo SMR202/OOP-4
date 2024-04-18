@@ -119,6 +119,10 @@ void MotherBoard::setMainMemory(MainMemory& other) {
 void MotherBoard::setPort(int i, Port port) {
 	ports[i] = port;
 }
+MotherBoard::~MotherBoard()}{
+	delete[] ports;
+	ports = nullptr;
+}
 PhysicalMemory::PhysicalMemory(int capacity = 1) : capacity(capacity) {}
 PhysicalMemory::PhysicalMemory(PhysicalMemory& other) {
 	this->capacity = other.capacity;

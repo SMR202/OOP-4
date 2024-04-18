@@ -79,6 +79,7 @@ public:
 	Port getPort(int i);
 	void setMainMemory(MainMemory&);
 	void setPort(int i, Port port);
+	~MotherBoard();
 };
 
 class PhysicalMemory {
@@ -110,7 +111,7 @@ public:
 class GraphicsCard {
 protected:
 	 string brand;
-	 int memorySize;
+	 int meomrySize;
 	 double price;
 public:
 	 GraphicsCard(string brand, int memorySize, double price);
