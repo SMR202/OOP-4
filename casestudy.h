@@ -192,6 +192,14 @@ public:
 class ComputerAssembly {
 protected:
 	 double price;
+	 Case PC_case;
+	 Computer computer;
+	 PowerSupply psu;
+	 GraphicsCard gpu;
+	 StorageDevice drive;
+	 NetworkCard netcard;
+	 Battery battery;
+
 public:
 	 ComputerAssembly(double price);
 	 ComputerAssembly(ComputerAssembly&);
