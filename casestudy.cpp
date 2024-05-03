@@ -1,4 +1,4 @@
-#include "C:\Users\PC\Desktop\oop-Assign3\casestudy.h"
+#include "C:\Users\Adnan Ahmed\Downloads\23i-0634_D\oop-Assign3\casestudy.h"
 
 ALU::ALU(int NoOfAdders = 1, int NoOfSubtractor = 1, int NoOfRegisters = 1, int sizeOfRegisters = 1) : NoOfAdders(NoOfAdders), NoOfSubtractor(NoOfSubtractor), NoOfRegisters(NoOfRegisters), sizeOfRegisters(sizeOfRegisters) {}
 ALU::ALU(const ALU& other) {
@@ -42,15 +42,18 @@ float ControlUnit::getclock() const {
 void ControlUnit::setclock(float t) {
 	this->clock = t;
 }
-CPU::CPU(ALU alu = 0, ControlUnit cu = 0) : alu(alu), cu(cu) {}
+CPU::CPU() : name(""), price(0) {}
+CPU::CPU(ALU& alu , ControlUnit& cu , string name = "", double price = 0) : alu(alu), cu(cu), name(name), price(price) {}
 CPU::CPU(const CPU& other) {
 	this->alu = other.alu;
 	this->cu = other.cu;
+	this->name = other.name;
+	this->price = other.price;
 }
-ALU CPU::getALU()const {
+ALU& CPU::getALU() {
 	return this->alu;
 }
-ControlUnit CPU::getCU()const {
+ControlUnit& CPU::getCU() {
 	return this->cu;
 }
 void CPU::setALU(const ALU& other) {
@@ -58,6 +61,18 @@ void CPU::setALU(const ALU& other) {
 }
 void CPU::setCU(const ControlUnit& other) {
 	this->cu = other;
+}
+string CPU::getName() {
+	return name;
+}
+void CPU::setName(string s) {
+	name = s;
+}
+void CPU::setPrice(double new_price) {
+	this->price = new_price;
+}
+double CPU::getPrice() {
+	return price;
 }
 MainMemory::MainMemory(int capacity = 1, string = "N/A") : capacity(capacity), technologyType(technologyType) {}
 MainMemory::MainMemory(const MainMemory& other) {
@@ -94,9 +109,9 @@ void Port::settype(string s) {
 	this->type = s;
 }
 
-MotherBoard::MotherBoard(MainMemory mm = 0, int NumOfPorts = 0, Port *ports = nullptr) : mm(mm), NumOfPorts(NumOfPorts) {
-	ports = new Port[NumOfPorts];
-	for (int i = 0; i < NumOfPorts; i++) {
+MotherBoard::MotherBoard() {}
+MotherBoard::MotherBoard(MainMemory& mm , Port ports[20] = {'\0'}, string name = "", double price = 0) : mm(mm), name(name), price(price) {
+	for (int i = 0; i < 20; i++) {
 		this->ports[i] = ports[i];
 	}
 }
@@ -106,11 +121,19 @@ MotherBoard::MotherBoard(MotherBoard& other) {
 	for (int i = 0; i < NumOfPorts; i++) {
 		this->ports[i] = other.ports[i];
 	}
+	this->name = other.name;
+	this->price = other.price;
 }
-MainMemory MotherBoard::getMainMemory() {
+MainMemory& MotherBoard::getMainMemory() {
 	return mm;
 }
-Port MotherBoard::getPort(int i) {
+string MotherBoard::getName() {
+	return name;
+}
+void MotherBoard::setName(string s) {
+	name = s;
+}
+Port& MotherBoard::getPort(int i) {
 	return ports[i];
 }
 void MotherBoard::setMainMemory(MainMemory& other) {
@@ -119,13 +142,18 @@ void MotherBoard::setMainMemory(MainMemory& other) {
 void MotherBoard::setPort(int i, Port port) {
 	ports[i] = port;
 }
-MotherBoard::~MotherBoard()}{
-	delete[] ports;
-	ports = nullptr;
+void MotherBoard::setPrice(double new_price) {
+	this->price = new_price;
 }
-PhysicalMemory::PhysicalMemory(int capacity = 1) : capacity(capacity) {}
+double MotherBoard::getPrice() {
+	return price;
+}
+
+PhysicalMemory::PhysicalMemory(int capacity = 1, string type = "", double price = 0) : capacity(capacity), type(type), price(price) {}
 PhysicalMemory::PhysicalMemory(PhysicalMemory& other) {
 	this->capacity = other.capacity;
+	this->type = other.type;
+	this->price = other.price;
 }
 int PhysicalMemory::getCapacity() const {
 	return capacity;
@@ -133,19 +161,35 @@ int PhysicalMemory::getCapacity() const {
 void PhysicalMemory::setCapacity(int x) {
 	capacity = x;
 }
-Computer::Computer(PhysicalMemory pm, MotherBoard mb, CPU cpu) : pm(pm), mb(mb), cpu(cpu) {}
+void PhysicalMemory::setType(string s) {
+	type = s;
+}
+string PhysicalMemory::getType() {
+	return type;
+}
+void PhysicalMemory::setPrice(double new_price) {
+	this->price = new_price;
+}
+double PhysicalMemory::getPrice() {
+	return price;
+}
+Computer::Computer(){}
+Computer::Computer(PhysicalMemory& pm, MotherBoard& mb , CPU& cpu ) : pm(pm), mb(mb), cpu(cpu) {}
 Computer::Computer(Computer& other) {
 	this->pm = other.pm;
+	this->pm.setCapacity(other.pm.getCapacity());
+	this->pm.setPrice(other.pm.getPrice());
+	this->pm.setType(other.pm.getType());
 	this->mb = other.mb;
 	this->cpu = other.cpu;
 }
-PhysicalMemory Computer::getPhysicalMemory() const {
+PhysicalMemory& Computer::getPhysicalMemory() {
 	return pm;
 }
-MotherBoard Computer::getMotherBoard() const {
+MotherBoard& Computer::getMotherBoard() {
 	return mb;
 }
-CPU Computer::getCPU() const {
+CPU& Computer::getCPU() {
 	return cpu;
 }
 void Computer::setPhysicalMemory(PhysicalMemory& other) {
@@ -266,10 +310,11 @@ void Battery::setCapacity(int x) {
 	capacity = x;
 }
 
-Case::Case(string formFactor, string color) : formFactor(formFactor), color(color) {}
+Case::Case(string formFactor, string color, double price) : formFactor(formFactor), color(color), price(price) {}
 Case::Case(Case& other) {
 	this->formFactor = other.formFactor;
 	this->color = other.color;
+	this->price = other.price;
 }
 string Case::getFormFactor() {
 	return formFactor;
@@ -283,14 +328,302 @@ void Case::setFormFactor(string new_Form) {
 void Case::setColor(string new_Color) {
 	this->color = new_Color;
 }
-
-ComputerAssembly::ComputerAssembly(Computer computer, Case PC_case, PowerSupply psu, GraphicsCard gpu, StorageDevice drive, NetworkCard netcard, Battery battery) : computer(computer), PC_case(PC_case), psu(psu), gpu(gpu), drive(drive), netcard(netcard), battery(battery) {}
+void Case::setPrice(double new_price) {
+	this->price = new_price;
+}
+double Case::getPrice() {
+	return price;
+}
+ComputerAssembly::ComputerAssembly() : TotalPrice(0) {}
+ComputerAssembly::ComputerAssembly(Computer& computer, Case& PC_case, PowerSupply& psu, GraphicsCard& gpu, StorageDevice& drive, NetworkCard& netcard, Battery& battery) : computer(computer), PC_case(PC_case), psu(psu), gpu(gpu), drive(drive), netcard(netcard), battery(battery) {
+	TotalPrice = computer.getCPU().getPrice() + PC_case.getPrice() + psu.getPrice() + gpu.getPrice() + drive.getPrice() + netcard.getPrice();
+}
 ComputerAssembly::ComputerAssembly(ComputerAssembly& other) {
 	this->TotalPrice = other.TotalPrice;
+	computer = other.computer;
+	PC_case = other.PC_case;
+	psu = other.psu;
+	gpu = other.gpu;
+	drive = other.drive;
+	netcard = other.netcard;
+	battery = other.battery;
 }
 double ComputerAssembly::getTotalPrice() {
 	return this->TotalPrice;
 }
-void ComputerAssembly::setTotalPrice(double new_TotalPrice) {
-	this->TotalPrice = new_TotalPrice;
-}
+void ComputerAssembly::InputSpecs() {
+	int n, m, sum = 0, PCcheck, CPUcheck, Laptopcheck;
+	float f;
+	double d;
+	string s;
+	Computer c;
+	Case cs;
+	PowerSupply p;
+	GraphicsCard g;
+	StorageDevice sd;
+	NetworkCard nc;
+	Battery b;
+
+	cout << "Enter Your Specs: \n";
+
+	do {
+		cout << "Is your system a PC or a Mac\nEnter no.\n1. PC\n2. Mac\n";
+		cin >> PCcheck;
+		if (PCcheck != 1 && PCcheck != 2) {
+			cout << "Incorrect input! Try Again: \n";
+		}
+	} while (PCcheck != 1 && PCcheck != 2);
+	do {
+		cout << "Is your system a Laptop or a Desktop\nEnter no.\n1. Laptop\n2. Desktop\n";
+		cin >> Laptopcheck;
+		if (Laptopcheck != 1 && Laptopcheck != 2) {
+			cout << "Incorrect input! Try Again: \n";
+		}
+	} while (Laptopcheck != 1 && Laptopcheck != 2);
+
+	if (Laptopcheck == 1) {
+		cout << "Enter price of Laptop: ";
+		cin >> d;
+		TotalPrice = d;
+		c.getCPU().setPrice(d);
+	}
+
+	do {
+		cout << "CPU\nEnter no.\n1. Intel\n2. AMD\n3.AppleSilicon\n";
+		cin >> CPUcheck;
+		if (CPUcheck != 1 && CPUcheck != 2 && CPUcheck != 3) {
+			cout << "Incorrect input! Try Again: \n";
+		}
+	} while (CPUcheck != 1 && CPUcheck != 2 && CPUcheck != 3);
+	if (CPUcheck == 1) {
+		c.getCPU().setName("Intel");
+	}
+	else if (CPUcheck == 2) {
+		c.getCPU().setName("AMD");
+	}
+	else {
+		c.getCPU().setName("AppleSilicon");
+	}
+	cout << "ALU: \n";
+	cout << "No. Of Adders: ";
+	cin >> n;
+	c.getCPU().getALU().setNoOfAdders(n);
+	cout << "No. Of Subtractors: ";
+	cin >> n;
+	c.getCPU().getALU().setNoOfSubtractor(n);
+	cout << "No. Of Registors: ";
+	cin >> n;
+	c.getCPU().getALU().setNoOfRegisters(n);
+	cout << "Size Of Registers: ";
+	cin >> n;
+	c.getCPU().getALU().setsizeOfRegisters(n);
+	cout << "Control Unit clock: ";
+	cin >> f;
+	c.getCPU().getCU().setclock(f);
+	if (Laptopcheck == 2) {
+		cout << "Enter price of CPU: ";
+		cin >> d;
+		c.getCPU().setPrice(d);
+	}
+	cout << "Enter Motherboard name: ";
+	cin >> s;
+	c.getMotherBoard().setName(s);
+	if (Laptopcheck == 2) {
+		cout << "Enter price of MotherBoard: ";
+		cin >> d;
+		c.getMotherBoard().setPrice(d);
+	}
+	cout << "Enter main memory for the motherboard: \n";
+	cout << "Capacity: ";
+	cin >> n;
+	c.getMotherBoard().getMainMemory().setCapacity(n);
+	cout << "Technology Type: ";
+	cin >> s;
+	c.getMotherBoard().getMainMemory().setTechnologyType(s);
+
+	cout << "Enter Ports: \nEnter 0 to stop: \n";
+	for (int i = 0; ; i++) {
+		cout << "name: ";
+		cin >> s;
+		cout << "baud_rate: ";
+		cin >> n;
+		if (s == "0") {
+			break;
+		}
+		Port p(s, n);
+		c.getMotherBoard().setPort(i, p);
+	}
+
+	cout << "Enter MotherBoard RAM slots: ";
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		do {
+			cout << "Enter RAM in slot " << i + 1 << ": ";
+			cin >> m;
+		} while (m != 1 && m != 2 && m != 4 && m != 8 && m != 16 && m != 32 && m != 64 && m != 128);
+		sum += m;
+	}
+	c.getPhysicalMemory().setCapacity(sum);
+	bool flag = false;
+	cout << "Enter Ram type: ";
+	do {
+		cin >> s;
+		if (s != "DDR1" && s != "DDR2" && s != "DDR3" && s != "DDR4" && s != "DDR5" && s != "LPDDR1" && s != "LPDDR2" && s != "LPDDR3" && s != "LPDDR4" && s != "LPDDR5") {
+			flag = true;
+			cout << "Incorrect Type! Retry: ";
+		}
+		else {
+			flag = false;
+		}
+	} while (flag);
+	c.getPhysicalMemory().setType(s);
+	if (Laptopcheck == 2) {
+		cout << "Enter price of PhysicalMemory: ";
+		cin >> d;
+		c.getPhysicalMemory().setPrice(d);
+	}
+	if (PCcheck == 1) {
+
+		cout << "Enter GPU Brand: ";
+		cin >> s;
+		g.setBrand(s);
+
+		cout << "Enter GPU VRAM: ";
+		cin >> n;
+		g.setMemorySize(n);
+		if (Laptopcheck == 2) {
+			cout << "Enter GPU price: ";
+			cin >> d;
+			g.setPrice(d);
+		}
+	}
+	else {
+		g.setBrand("APPLE");
+	}
+	cout << "Enter StorageDevice Type (HDD, SSD, NVMe): ";
+	do {
+		cin >> s;
+		if (s != "HDD" && s != "SSD" && s != "NVMe")
+			cout << "Incorrect Type, Try Again: ";
+	} while (s != "HDD" && s != "SSD" && s != "NVMe");
+	sd.settype(s);
+
+	cout << "Enter StorageDevice Capacity in GBs: ";
+	cin >> n;
+	sd.setcapacity(n);
+	if (Laptopcheck == 2) {
+		cout << "Enter StorageDevice price: ";
+		cin >> d;
+		sd.setPrice(d);
+	}
+	cout << "Enter NetworkCard Type: ";
+	cin >> s;
+	nc.settype(s);
+
+	cout << "Enter NetworkCard Speed: ";
+	cin >> n;
+	nc.setspeed(n);
+	if (Laptopcheck == 2) {
+		cout << "Enter NetworkCard price: ";
+		cin >> d;
+		nc.setPrice(d);
+	}
+	if (Laptopcheck == 2) {
+		cout << "Enter PowerSupply Efficiency Rating (e.g. 80 Plus Bronze)\nIf no rating then write NONE: ";
+		do {
+			cin >> s;
+			if (s != "NONE" && s != "80 Plus Bronze" && s != "80 Plus Silver" && s != "80 Plus Gold" && s != "80 Plus Platinum")
+				cout << "Incorrect Rating, Try Again: ";
+		} while (s != "NONE" && s != "80 Plus Bronze" && s != "80 Plus Silver" && s != "80 Plus Gold" && s != "80 Plus Platinum");
+		p.setEfficiencyRating(s);
+
+		cout << "Enter PowerSupply Wattage: ";
+		cin >> n;
+		p.setwattage(n);
+
+
+		cout << "Enter PowerSupply price: ";
+		cin >> d;
+		p.setPrice(d);
+	}
+	if (Laptopcheck == 1) {
+		cout << "Enter Battery Capacity: ";
+		cin >> n;
+		b.setCapacity(n);
+	}
+	else
+	{
+		cout << "Enter Case FormFactor: ";
+		do {
+			cin >> s;
+			if (s != "ATX" && s != "Micro ATX" && s != "Mini ITX")
+				cout << "Incorrect Type, Try Again: ";
+		} while (s != "ATX" && s != "Micro ATX" && s != "Mini ITX");
+		cs.setFormFactor(s);
+	}
+	cout << "Enter Case Color: ";
+	cin >> s;
+	cs.setColor(s);
+	if (Laptopcheck == 2) {
+		cout << "Enter Case price: ";
+		cin >> d;
+		cs.setPrice(d);
+	}
+
+ }
+ void ComputerAssembly::Display() {
+	 cout << "Your ";
+	 if (PC_case.getFormFactor() != "") {
+		 if (computer.getCPU().getName() == "AppleSilicon")
+			 cout << "Mac";
+		 else
+			 cout << "Desktop";
+	 }
+	 else {
+		 if (computer.getCPU().getName() == "AppleSilicon")
+			 cout << "Macbook";
+		 else
+			 cout << "Laptop";
+	 }
+	 cout<<" Specs: \n";
+	 cout << "CPU: "<< computer.getCPU().getName();
+	 cout << "\nALU\nNoOfAdders: "<<computer.getCPU().getALU().getNoOfAdders();
+	 cout << "\nNoOfSubtractors: " << computer.getCPU().getALU().getNoOfSubtractor();
+	 cout << "\nNoOfRegisters: " << computer.getCPU().getALU().getNoOfRegisters();
+	 cout << "\nsizeOfRegisters: " << computer.getCPU().getALU().getsizeOfRegisters()<<endl<<endl;
+
+	 cout << "Control Unit: " << computer.getCPU().getCU().getclock() << endl << endl;
+
+	 cout << "MotherBoard: "<<computer.getMotherBoard().getName()<<endl;
+	 for (int i = 0; computer.getMotherBoard().getPort(i).getbaud_rate() != 0; i++) {
+		 cout << computer.getMotherBoard().getPort(i).gettype() << ' ' << computer.getMotherBoard().getPort(i).getbaud_rate() << endl;
+	 }
+	 cout << "\nMain Memory: " << computer.getMotherBoard().getMainMemory().getTechnologyType() <<' '<< computer.getMotherBoard().getMainMemory().getCapacity()<<" bits" << endl << endl;
+
+	 cout << "RAM: " << computer.getPhysicalMemory().getCapacity() << " GB " << computer.getPhysicalMemory().getType() << endl << endl;
+
+	 if (computer.getCPU().getName() != "AppleSilicon") {
+		 cout << "Graphics Card: " << gpu.getBrand() << ' ' << gpu.getMemorySize() << " GB \n\n";
+	 }
+	 else {
+		 cout << "integrated Graphics\n\n";
+	 }
+	 cout << "Storage: " << drive.gettype() << ' ' << drive.getcapacity() << " GB\n\n";
+
+	 cout << "NetworkCard: " << netcard.gettype() << ' ' << netcard.getspeed() << " Mbps\n\n";
+
+	 if (PC_case.getFormFactor() != "") {
+
+		 cout << "Power Supply: " << psu.getwattage() << ' ' << psu.getEfficiencyRating() << endl << endl;
+
+		 cout << "Case: " << PC_case.getFormFactor() << ' ' << PC_case.getColor() << endl;
+
+		
+	 }
+	 else {
+		 cout << "Battery: " << battery.getCapacity() << endl << endl;
+	 }
+	 
+	 cout << "\n----Total Price: " << TotalPrice << endl;
+
+ }

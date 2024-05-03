@@ -1,4 +1,6 @@
 #pragma once
+#ifndef CASESTUDY
+#define CASESTUDY
 #include <iostream>
 using namespace std;
 
@@ -6,7 +8,7 @@ class ALU {
 protected:
 	int NoOfAdders, NoOfSubtractor, NoOfRegisters, sizeOfRegisters;
 public:
-	ALU(int NoOfAdders = 1, int NoOfSubtractor = 1, int NoOfRegisters = 1, int sizeOfRegisters = 1);
+	ALU(int NoOfAdders, int NoOfSubtractor, int NoOfRegisters, int sizeOfRegisters);
 	ALU(const ALU&);
 	int getNoOfAdders()const;
 	int getNoOfSubtractor()const;
@@ -22,31 +24,52 @@ class ControlUnit {
 protected:
 	float clock;
 public:
-	ControlUnit(float clock = 0.0);
+	ControlUnit(float clock);
 	ControlUnit(const ControlUnit&);
 	float getclock()const;
 	void setclock(float t);
 };
 
-class CPU : public ALU, ControlUnit {
+class CPU {
 protected:
 	ALU alu;
 	ControlUnit cu;
+	string name;
+	double price;
 public:
-	CPU(ALU alu, ControlUnit cu);
+	CPU();
+	CPU(ALU& alu, ControlUnit& cu, string name , double price);
 	CPU(const CPU&);
-	ALU getALU()const;
-	ControlUnit getCU()const;
+	ALU& getALU();
+	ControlUnit& getCU();
 	void setALU(const ALU&);
 	void setCU(const ControlUnit&);
+	string getName();
+	void setName(string s);
+	void setPrice(double);
+	double getPrice();
 };
 
+class AppleSilicon: public CPU {
+public:
+	AppleSilicon() {
+		CPU::setName("AppleSilicon");
+	}
+};
+class Intel : public CPU {
+public:
+	
+};
+class Ryzen : public CPU {
+public:
+	
+};
 class MainMemory {
 protected:
 	int capacity;
 	string technologyType;
 public:
-	MainMemory(int capacity = 1, string = "N/A");
+	MainMemory(int capacity, string);
 	MainMemory(const MainMemory&);
 	int getCapacity()const;
 	string getTechnologyType()const;
@@ -59,7 +82,7 @@ protected:
 	string type;
 	int baud_rate;
 public:
-	Port(string = "N/A", int baud_rate = 0);
+	Port(string, int baud_rate);
 	Port(const Port&);
 	int getbaud_rate()const;
 	string gettype()const;
@@ -67,42 +90,55 @@ public:
 	void settype(string s);
 };
 
-class MotherBoard : public MainMemory, Port {
+class MotherBoard {
 protected:
 	MainMemory mm;
 	int NumOfPorts;
-	Port *ports;
+	Port ports[20];
+	string name;
+	double price;
 public:
-	MotherBoard(MainMemory mm, int NumOfPorts, Port *ports);
+	MotherBoard();
+	MotherBoard(MainMemory& mm, Port ports[20], string name, double price);
 	MotherBoard(MotherBoard&);
-	MainMemory getMainMemory();
-	Port getPort(int i);
+	MainMemory& getMainMemory();
+	Port& getPort(int i);
 	void setMainMemory(MainMemory&);
 	void setPort(int i, Port port);
-	~MotherBoard();
+	string getName();
+	void setName(string s);
+	void setPrice(double);
+	double getPrice();
 };
 
 class PhysicalMemory {
 protected:
 	int capacity;
+	string type;
+	double price;
 public:
-	PhysicalMemory(int capacity);
+	PhysicalMemory(int capacity, string type, double price);
 	PhysicalMemory(PhysicalMemory&);
 	int getCapacity() const;
 	void setCapacity(int x);
+	string getType();
+	void setType(string s);
+	void setPrice(double);
+	double getPrice();
 };
 
-class Computer : public PhysicalMemory, MotherBoard, CPU{
+class Computer {
 protected:
 	PhysicalMemory pm;
 	MotherBoard mb;
 	CPU cpu;
 public:
-	Computer(PhysicalMemory pm, MotherBoard mb, CPU cpu);
+	Computer();
+	Computer(PhysicalMemory& pm, MotherBoard& mb, CPU& cpu);
 	Computer(Computer&);
-	PhysicalMemory getPhysicalMemory() const;
-	MotherBoard getMotherBoard() const;
-	CPU getCPU() const;
+	PhysicalMemory& getPhysicalMemory();
+	MotherBoard& getMotherBoard();
+	CPU& getCPU() ;
 	void setPhysicalMemory(PhysicalMemory&);
 	void setMotherBoard(MotherBoard&);
 	void setCPU(CPU&);
@@ -110,98 +146,119 @@ public:
 
 class GraphicsCard {
 protected:
-	 string brand;
-	 int meomrySize;
-	 double price;
+	string brand;
+	int memorySize;
+	double price;
 public:
-	 GraphicsCard(string brand, int memorySize, double price);
-	 GraphicsCard(GraphicsCard&);
-	 string getBrand();
-	 int getMemorySize();
-	 double getPrice();
-	 void setBrand(string);
-	 void setMemorySize(int);
-	 void setPrice(double);
+	GraphicsCard():brand(""), memorySize(0), price(0.0) {}
+	GraphicsCard(string brand, int memorySize, double price);
+	GraphicsCard(GraphicsCard&);
+	string getBrand();
+	int getMemorySize();
+	double getPrice();
+	void setBrand(string);
+	void setMemorySize(int);
+	void setPrice(double);
+};
+class Nvidia : public GraphicsCard {
+
+};
+class AMD : public GraphicsCard {
+
 };
 class StorageDevice {
 protected:
-	 string type;
-	 int capacity;
-	 double price;
+	string type;
+	int capacity;
+	double price;
 public:
-	 StorageDevice(string type, int capacity, double price);
-	 StorageDevice(StorageDevice&);
-	 string gettype();
-	 int getcapacity();
-	 double getPrice();
-	 void settype(string);
-	 void setcapacity(int);
-	 void setPrice(double);
+	StorageDevice() : type(""), capacity(0), price(0.0) {}
+	StorageDevice(string type, int capacity, double price);
+	StorageDevice(StorageDevice&);
+	string gettype();
+	int getcapacity();
+	double getPrice();
+	void settype(string);
+	void setcapacity(int);
+	void setPrice(double);
 };
 class NetworkCard {
 protected:
-	 string type;
-	 int speed;
-	 double price;
+	string type;
+	int speed;
+	double price;
 public:
-	 NetworkCard(string type, int speed, double price);
-	 NetworkCard(NetworkCard&);
-	 string gettype();
-	 int getspeed();
-	 double getPrice();
-	 void settype(string);
-	 void setspeed(int);
-	 void setPrice(double);
+	NetworkCard() : type(""), speed(0), price(0.0) {}
+	NetworkCard(string type, int speed, double price);
+	NetworkCard(NetworkCard&);
+	string gettype();
+	int getspeed();
+	double getPrice();
+	void settype(string);
+	void setspeed(int);
+	void setPrice(double);
 };
 class PowerSupply {
 protected:
-	 string efficiencyRating;
-	 int wattage;
-	 double price;
+	string efficiencyRating;
+	int wattage;
+	double price;
 public:
-	 PowerSupply(string efficiencyRating, int wattage, double price);
-	 PowerSupply(PowerSupply&);
-	 string getEfficiencyRating();
-	 int getwattage();
-	 double getPrice();
-	 void setEfficiencyRating(string);
-	 void setwattage(int);
-	 void setPrice(double);
+	PowerSupply() : efficiencyRating(""), wattage(0), price(0.0) {}
+	PowerSupply(string efficiencyRating, int wattage, double price);
+	PowerSupply(PowerSupply&);
+	string getEfficiencyRating();
+	int getwattage();
+	double getPrice();
+	void setEfficiencyRating(string);
+	void setwattage(int);
+	void setPrice(double);
 };
 class Battery {
 protected:
-	 int capacity;
+	int capacity;
 public:
-	 Battery(int capacity);
-	 Battery(Battery&);
-	 int getCapacity() const;
-	 void setCapacity(int x);
+	Battery() : capacity(0) {}
+	Battery(int capacity);
+	Battery(Battery&);
+	int getCapacity() const;
+	void setCapacity(int x);
 };
 class Case {
 protected:
-	 string formFactor;
-	 string color;
+	string formFactor;
+	string color;
+	double price;
 public:
-	 Case(string formFactor, string color);
-	 Case(Case&);
-	 string getFormFactor();
-	 string getColor();
-	 void setFormFactor(string new_Form);
-	 void setColor(string new_Color);
+	Case() :formFactor(""), color(""), price(0) {}
+	Case(string formFactor, string color, double price);
+	Case(Case&);
+	string getFormFactor();
+	string getColor();
+	void setFormFactor(string new_Form);
+	void setColor(string new_Color);
+	void setPrice(double);
+	double getPrice();
 };
 class ComputerAssembly {
 protected:
-	 double TotalPrice;
-	 Case PC_case;
-	 Computer computer;
-	 PowerSupply psu;
-	 GraphicsCard gpu;
-	 StorageDevice drive;
-	 NetworkCard netcard;
-	 Battery battery;
+	double TotalPrice;
+	Case PC_case;
+	Computer computer;
+	PowerSupply psu;
+	GraphicsCard gpu;
+	StorageDevice drive;
+	NetworkCard netcard;
+	Battery battery;
+
 public:
-	 ComputerAssembly(Computer computer, Case PC_case, PowerSupply psu, GraphicsCard gpu, StorageDevice drive, NetworkCard netcard, Battery battery);
-	 ComputerAssembly(ComputerAssembly&);
-	 double getTotalPrice();
-	 void setTotalPrice(double new_TotalPrice);
+	ComputerAssembly();
+	ComputerAssembly(Computer& computer, Case& PC_case, PowerSupply& psu, GraphicsCard& gpu, StorageDevice& drive, NetworkCard& netcard, Battery& battery);
+	ComputerAssembly(ComputerAssembly&);
+	double getTotalPrice();
+	void InputSpecs();
+	void Display();
 };
+
+
+#endif // CASESTUDY
