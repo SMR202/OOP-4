@@ -2,13 +2,6 @@
 
 A comprehensive C++ application for configuring and pricing computer systems, supporting both desktop PCs and laptops with various hardware configurations.
 
-## Authors
-- Muhammad Sameer
-- Shehreyar Rashid  
-- Muhammad Abdur Rafey
-- Muhammad Ariyan
-- Student ID: 23i-0634
-
 ## Overview
 
 This Object-Oriented Programming (OOP) project implements a computer assembly system that allows users to:
